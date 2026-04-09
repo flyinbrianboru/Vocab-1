@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="ga">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réamhfhocail — Gaeilge Uladh</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral+SC:wght@400;600&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0e1410;
+    --surface:   #141c17;
+    --card:      #1a2420;
+    --border:    #2a3d35;
+    --border2:   #3a5248;
+    --gold:      #c8a85a;
+    --gold-dim:  #9a7d3a;
+    --teal:      #5eb89e;
+    --teal-dim:  #3d8870;
+    --red:       #c06060;
+    --green:     #5a9e72;
+    --text:      #e8ded0;
+    --text-dim:  #9aada4;
+    --text-faint:#5a7068;
+    --ulster:    #d4a843;
+    --note-bg:   #1e2e28;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(180deg, #0a100d 0%, #0e1410 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(94,184,158,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-kicker {
+    font-family: 'Spectral SC', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    color: var(--teal-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  header h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(1.9rem, 5vw, 2.8rem);
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+  .header-sub {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 1rem;
+    margin-top: 0.35rem;
+  }
+  .ornament {
+    color: var(--border2);
+    font-size: 1.1rem;
+    letter-spacing: 0.5em;
+    margin-top: 0.8rem;
+    display: block;
+  }
+
+  /* ── NAV TABS ── */
+  nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex: 1;
+    min-width: 130px;
+    padding: 0.85rem 1rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    font-family: 'Spectral SC', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.02); }
+  .tab-btn.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    background: rgba(200,168,90,0.04);
+  }
+
+  /* ── CONTENT PANELS ── */
+  .panel { display: none; padding: 1.5rem; max-width: 820px; margin: 0 auto; }
+  .panel.active { display: block; }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.55rem;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-sub {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    font-family: 'EB Garamond', serif;
+  }
+  h3.group-title {
+    font-family: 'Spectral SC', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── PREP CARDS ── */
+  .prep-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--teal-dim);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .prep-card-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .prep-word {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--teal);
+  }
+  .prep-meaning {
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 0.92rem;
+  }
+  .prep-mutation {
+    margin-left: auto;
+    font-size: 0.75rem;
+    font-family: 'Spectral SC', serif;
+    color: var(--gold-dim);
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--border2);
+    border-radius: 3px;
+    background: rgba(200,168,90,0.05);
+  }
+
+  /* ── PRONOUN TABLE ── */
+  .pron-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 0.5rem;
+  }
+  .pron-table th {
+    background: rgba(94,184,158,0.08);
+    color: var(--teal-dim);
+    font-family: 'Spectral SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    font-weight: 400;
+    text-align: left;
+  }
+  .pron-table td {
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .pron-table td:first-child {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    white-space: nowrap;
+    width: 80px;
+  }
+  .pron-form {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+  .pron-form.ulster {
+    color: var(--ulster);
+  }
+  .ulster-badge {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-family: 'Spectral SC', serif;
+    letter-spacing: 0.08em;
+    color: var(--ulster);
+    border: 1px solid var(--ulster);
+    padding: 0.1rem 0.35rem;
+    border-radius: 2px;
+    margin-left: 0.3rem;
+    vertical-align: middle;
+    opacity: 0.8;
+  }
+
+  /* ── EXAMPLES ── */
+  .examples {
+    margin-top: 0.7rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--border);
+  }
+  .example-item {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 0.4rem;
+    align-items: baseline;
+  }
+  .irish { 
+    font-family: 'EB Garamond', serif;
+    font-size: 1.02rem;
+    color: var(--text);
+    flex: 1;
+  }
+  .english {
+    font-size: 0.83rem;
+    color: var(--text-dim);
+    font-style: italic;
+    flex: 1;
+  }
+  .bullet {
+    color: var(--border2);
+    flex-shrink: 0;
+  }
+
+  /* ── NOTE BOX ── */
+  .note-box {
+    background: var(--note-bg);
+    border: 1px solid var(--border2);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+  }
+  .note-box strong {
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .note-box .irish {
+    font-size: 0.95rem;
+  }
+
+  /* ── MUTATION LEGEND ── */
+  .mutation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+  .mutation-cell {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  .mutation-cell .label {
+    font-family: 'Spectral SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--teal-dim);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .mutation-cell .rule {
+    color: var(--text);
+    font-family: 'EB Garamond', serif;
+    font-size: 0.98rem;
+  }
+
+  /* ── COMPOUND TABLE ── */
+  .compound-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+  }
+  .compound-table thead th {
+    background: rgba(94,184,158,0.08);
+    color: var(--teal-dim);
+    font-family: 'Spectral SC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--border);
+    font-weight: 400;
+    text-align: left;
+  }
+  .compound-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .compound-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+  .compound-table td {
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .compound-table td:first-child {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--teal);
+    white-space: nowrap;
+  }
+  .compound-table td:nth-child(2) {
+    font-style: italic;
+    color: var(--text-dim);
+  }
+  .compound-table td:nth-child(3) {
+    color: var(--text-dim);
+    font-size: 0.82rem;
+  }
+  .gen-badge {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-family: 'Spectral SC', serif;
+    color: var(--teal-dim);
+    border: 1px solid var(--border2);
+    padding: 0.1rem 0.3rem;
+    border-radius: 2px;
+    margin-left: 0.3rem;
+  }
+  .compound-example {
+    display: block;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-top: 0.25rem;
+  }
+  .compound-example em {
+    color: var(--text-dim);
+    font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  /* ── CONVERSATION ── */
+  .convo-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.7rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .convo-num {
+    font-family: 'Spectral SC', serif;
+    font-size: 0.7rem;
+    color: var(--text-faint);
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+    width: 22px;
+  }
+  .convo-body { flex: 1; }
+  .convo-irish {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.12rem;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+  }
+  .convo-english {
+    font-size: 0.84rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+  .convo-note {
+    font-size: 0.78rem;
+    color: var(--gold-dim);
+    margin-top: 0.2rem;
+  }
+  .convo-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-family: 'Spectral SC', serif;
+    letter-spacing: 0.06em;
+    color: var(--teal-dim);
+    border: 1px solid var(--border2);
+    padding: 0.1rem 0.35rem;
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    height: fit-content;
+  }
+
+  /* ── QUIZ ── */
+  #quiz-start {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  .start-btn, .next-btn, .restart-btn {
+    font-family: 'Spectral SC', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.75rem 2rem;
+    border: 1px solid var(--teal-dim);
+    background: rgba(94,184,158,0.08);
+    color: var(--teal);
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+    margin-top: 1rem;
+  }
+  .start-btn:hover, .next-btn:hover, .restart-btn:hover {
+    background: rgba(94,184,158,0.16);
+    border-color: var(--teal);
+  }
+  #quiz-active { display: none; }
+  .quiz-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+  }
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--teal-dim);
+    transition: width 0.4s ease;
+  }
+  .quiz-q {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+  }
+  .quiz-q .highlight {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .options {
+    display: grid;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .opt-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    padding: 0.65rem 1rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.15s;
+  }
+  .opt-btn:hover:not(:disabled) {
+    background: rgba(94,184,158,0.06);
+    border-color: var(--teal-dim);
+    color: var(--teal);
+  }
+  .opt-btn.correct {
+    background: rgba(90,158,114,0.15);
+    border-color: var(--green);
+    color: var(--green);
+  }
+  .opt-btn.wrong {
+    background: rgba(192,96,96,0.12);
+    border-color: var(--red);
+    color: var(--red);
+  }
+  .opt-btn:disabled { cursor: default; }
+  .quiz-feedback {
+    min-height: 2.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 3px;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+  }
+  .quiz-feedback.correct-fb {
+    background: rgba(90,158,114,0.1);
+    border: 1px solid rgba(90,158,114,0.3);
+    color: var(--green);
+  }
+  .quiz-feedback.wrong-fb {
+    background: rgba(192,96,96,0.1);
+    border: 1px solid rgba(192,96,96,0.3);
+    color: #d08080;
+  }
+  .quiz-feedback.hidden { display: none; }
+  #quiz-results { display: none; text-align: center; padding: 2rem 1rem; }
+  .score-big {
+    font-family: 'EB Garamond', serif;
+    font-size: 4rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .score-label {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  .review-list { text-align: left; margin-top: 1.5rem; }
+  .review-item {
+    padding: 0.6rem 0.8rem;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+    font-size: 0.88rem;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+  }
+  .review-item.r-correct {
+    background: rgba(90,158,114,0.08);
+    border-left: 3px solid var(--green);
+  }
+  .review-item.r-wrong {
+    background: rgba(192,96,96,0.08);
+    border-left: 3px solid var(--red);
+  }
+  .review-item .r-q { color: var(--text); margin-bottom: 0.2rem; }
+  .review-item .r-a { color: var(--text-dim); font-size: 0.85rem; }
+  .review-item .r-correct-ans { color: var(--green); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+    color: var(--text-faint);
+    font-size: 0.78rem;
+    font-family: 'Spectral SC', serif;
+    letter-spacing: 0.1em;
+  }
+
+  @media(max-width: 600px) {
+    .pron-table { font-size: 0.8rem; }
+    .compound-table { font-size: 0.8rem; }
+    .prep-word { font-size: 1.25rem; }
+    .convo-irish { font-size: 1rem; }
+    header { padding: 1.5rem 1rem 1rem; }
+    .panel { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-kicker">Gaeilge Uladh · Ulster Irish Grammar</div>
+  <h1>Réamhfhocail</h1>
+  <div class="header-sub">Simple &amp; Compound Prepositions · Everyday Conversation</div>
+  <span class="ornament">✦ ✦ ✦</span>
+</header>
+
+<nav>
+  <button class="tab-btn active" onclick="showTab('simple')">Réamhfhocail Shimplí</button>
+  <button class="tab-btn" onclick="showTab('compound')">Réamhfhocail Chomhshuite</button>
+  <button class="tab-btn" onclick="showTab('convo')">Comhrá</button>
+  <button class="tab-btn" onclick="showTab('quiz')">Tástáil</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- PANEL 1: SIMPLE PREPOSITIONS                           -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="panel-simple" class="panel active">
+  <div class="section-title">Réamhfhocail Shimplí</div>
+  <div class="section-sub">The 14 simple prepositions — with prepositional pronouns in Ulster forms and initial mutation rules</div>
+
+  <div class="note-box">
+    <strong>Réamhfhocail Shéimhithe</strong> — ar, de, do, faoi, ó, roimh, thar, trí, um all cause <strong>séimhiú</strong> (lenition).<br>
+    <strong>i</strong> causes <strong>urú</strong> (eclipsis) before consonants, and <strong>i n-</strong> before vowels.<br>
+    <strong>Réamhfhocail gan athrú</strong> — ag, as, chuig, le cause no mutation.
+  </div>
+
+  <!-- AG -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">ag</span>
+      <span class="prep-meaning">at; possession (have); ongoing action</span>
+      <span class="prep-mutation">gan athrú</span>
+    </div>
+    <table class="pron-table">
+      <tr>
+        <th>Person</th><th>Singular</th><th>Plural</th>
+      </tr>
+      <tr><td>1st</td><td><span class="pron-form">agam</span></td><td><span class="pron-form">againn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">agat</span></td><td><span class="pron-form">agaibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">aige</span></td><td rowspan="2"><span class="pron-form">acu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">aici</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Tá leabhar <strong>agam</strong>.</span><span class="english">I have a book.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Tá sé <strong>ag</strong> obair.</span><span class="english">He is working.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Níl a fhios <strong>agam</strong>.</span><span class="english">I don't know.</span></div>
+    </div>
+  </div>
+
+  <!-- AR -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">ar</span>
+      <span class="prep-meaning">on; physical states &amp; emotions (on a person)</span>
+      <span class="prep-mutation">séimhiú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">orm</span></td><td><span class="pron-form">orainn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">ort</span></td><td><span class="pron-form">oraibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">air</span></td><td rowspan="2"><span class="pron-form">orthu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">uirthi</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Tá ocras <strong>orm</strong>.</span><span class="english">I'm hungry.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Cad é atá <strong>ort</strong>?</span><span class="english">What's the matter with you?</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Bhí áthas mór <strong>air</strong>.</span><span class="english">He was very happy.</span></div>
+    </div>
+  </div>
+
+  <!-- AS -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">as</span>
+      <span class="prep-meaning">out of; from (origin/material)</span>
+      <span class="prep-mutation">gan athrú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">asam</span></td><td><span class="pron-form">asainn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">asat</span></td><td><span class="pron-form">asaibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">as</span></td><td rowspan="2"><span class="pron-form">astu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">aisti</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Is <strong>as</strong> Béal Feirste mé.</span><span class="english">I'm from Belfast.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Cad é a tháinig <strong>as</strong>?</span><span class="english">What came of it?</span></div>
+    </div>
+  </div>
+
+  <!-- CHUIG -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">chuig</span>
+      <span class="prep-meaning">to, towards (direction; sending)</span>
+      <span class="prep-mutation">gan athrú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">chugam</span></td><td><span class="pron-form">chugainn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">chugat</span></td><td><span class="pron-form">chugaibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">chuige</span></td><td rowspan="2"><span class="pron-form">chucu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">chuici</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Tá mé ag dul <strong>chuig</strong> an siopa.</span><span class="english">I'm going to the shop.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Scríobh sí litir <strong>chugam</strong>.</span><span class="english">She wrote a letter to me.</span></div>
+    </div>
+  </div>
+
+  <!-- DE -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">de</span>
+      <span class="prep-meaning">of, off; separation from</span>
+      <span class="prep-mutation">séimhiú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">díom</span></td><td><span class="pron-form">dínn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">díot</span></td><td><span class="pron-form">díbh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">de</span></td><td rowspan="2"><span class="pron-form">díobh</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">di</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Thit sé <strong>den</strong> chathaoir.</span><span class="english">He fell off the chair.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Bain <strong>de</strong> do chóta.</span><span class="english">Take off your coat.</span></div>
+    </div>
+  </div>
+
+  <!-- DO -->
+  <div class="prep-card" style="border-left-color: var(--ulster);">
+    <div class="prep-card-header">
+      <span class="prep-word">do</span>
+      <span class="prep-meaning">to, for (indirect object; dative)</span>
+      <span class="prep-mutation">séimhiú</span>
+    </div>
+    <div class="note-box" style="margin-top:0; margin-bottom:0.6rem; font-size:0.83rem;">
+      <strong>Béarla Uladh:</strong> The 1sg form is <strong>domh</strong> in Ulster Irish — not <em>dom</em> (Connacht/Munster). Listen for this in everyday speech.
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form ulster">domh</span> <span class="ulster-badge">Ulster</span></td><td><span class="pron-form">dúinn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">duit</span></td><td><span class="pron-form">daoibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">dó</span></td><td rowspan="2"><span class="pron-form">dóibh</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">di</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Thug sé leabhar <strong>domh</strong>.</span><span class="english">He gave me a book.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Cad é a dúirt tú <strong>leis</strong>?</span><span class="english">What did you say to him?</span></div>
+    </div>
+  </div>
+
+  <!-- FAOI -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">faoi</span>
+      <span class="prep-meaning">under; about (topic); approximately</span>
+      <span class="prep-mutation">séimhiú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">fúm</span></td><td><span class="pron-form">fúinn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">fút</span></td><td><span class="pron-form">fúibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">faoi</span></td><td rowspan="2"><span class="pron-form">fúthu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">fúithi</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Cad é a cheapann tú <strong>faoi</strong>?</span><span class="english">What do you think about it?</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Bhí sé ag caint <strong>fút</strong>.</span><span class="english">He was talking about you.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Tá sé <strong>faoi</strong> bhun mile.</span><span class="english">It's under a mile.</span></div>
+    </div>
+  </div>
+
+  <!-- I -->
+  <div class="prep-card" style="border-left-color: var(--gold-dim);">
+    <div class="prep-card-header">
+      <span class="prep-word">i (in)</span>
+      <span class="prep-meaning">in; into (+ eclipsis / i n- before vowels)</span>
+      <span class="prep-mutation">urú</span>
+    </div>
+    <div class="note-box" style="margin-top:0; margin-bottom:0.6rem; font-size:0.83rem;">
+      <strong>Urú:</strong> <span class="irish">i gContae Aontroma · i mBéal Feirste · i nDoire · i gCill Mhantáin</span><br>
+      Before vowels: <span class="irish">i n-Albain · i nÉirinn</span> — the <strong>n-</strong> prefix (no space before uppercase).
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">ionam</span></td><td><span class="pron-form">ionainn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">ionat</span></td><td><span class="pron-form">ionaibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">ann</span></td><td rowspan="2"><span class="pron-form">iontu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">inti</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Tá sé ina chónaí <strong>i mBéal Feirste</strong>.</span><span class="english">He lives in Belfast.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Cad é atá <strong>ann</strong>?</span><span class="english">What is there? / What's in it?</span></div>
+    </div>
+  </div>
+
+  <!-- LE -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">le</span>
+      <span class="prep-meaning">with; belonging to; for (time future)</span>
+      <span class="prep-mutation">gan athrú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">liom</span></td><td><span class="pron-form">linn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">leat</span></td><td><span class="pron-form">libh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">leis</span></td><td rowspan="2"><span class="pron-form">leo</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">léi</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Bhí muid <strong>le chéile</strong> aréir.</span><span class="english">We were together last night.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Is <strong>liom</strong> an carr sin.</span><span class="english">That car is mine.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Labhair mé <strong>leis</strong> ar maidin.</span><span class="english">I spoke to him this morning.</span></div>
+    </div>
+  </div>
+
+  <!-- Ó -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">ó</span>
+      <span class="prep-meaning">from; since</span>
+      <span class="prep-mutation">séimhiú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">uaim</span></td><td><span class="pron-form">uainn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">uait</span></td><td><span class="pron-form">uaibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">uaidh</span></td><td rowspan="2"><span class="pron-form">uathu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">uaithi</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Tháinig sé <strong>ó Bhéal Feirste</strong>.</span><span class="english">He came from Belfast.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Chuala mé <strong>uaidh</strong> inné.</span><span class="english">I heard from him yesterday.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Ní fhaca mé thú <strong>ó</strong> shin.</span><span class="english">I haven't seen you since then.</span></div>
+    </div>
+  </div>
+
+  <!-- ROIMH -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">roimh</span>
+      <span class="prep-meaning">before (time &amp; place); ahead of</span>
+      <span class="prep-mutation">séimhiú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">romham</span></td><td><span class="pron-form">romhainn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">romhat</span></td><td><span class="pron-form">romhaibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">roimhe</span></td><td rowspan="2"><span class="pron-form">rompu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">roimpi</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Bhí mé ann <strong>roimhe seo</strong>.</span><span class="english">I was there before / before now.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Beidh obair mhór <strong>romhainn</strong>.</span><span class="english">There'll be a lot of work ahead of us.</span></div>
+    </div>
+  </div>
+
+  <!-- THAR -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">thar</span>
+      <span class="prep-meaning">over, past, beyond; exceeding</span>
+      <span class="prep-mutation">séimhiú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">tharam</span></td><td><span class="pron-form">tharainn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">tharat</span></td><td><span class="pron-form">tharaibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">thairis</span></td><td rowspan="2"><span class="pron-form">tharstu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">thairsti</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Chuaigh sé <strong>thar bealach</strong>.</span><span class="english">He went too far / overdid it.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Ghabh sé <strong>tharam</strong> gan focal.</span><span class="english">He passed me without a word.</span></div>
+    </div>
+  </div>
+
+  <!-- TRÍ -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">trí</span>
+      <span class="prep-meaning">through; by means of</span>
+      <span class="prep-mutation">séimhiú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">tríom</span></td><td><span class="pron-form">trínn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">tríot</span></td><td><span class="pron-form">tríbh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">tríd</span></td><td rowspan="2"><span class="pron-form">tríothu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">tríti</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Ghabh siad <strong>trí</strong> Bhéal Feirste.</span><span class="english">They went through Belfast.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Bhain sé gáire asam; chuaigh sé <strong>tríom</strong>.</span><span class="english">He made me laugh; it went through me.</span></div>
+    </div>
+  </div>
+
+  <!-- UM -->
+  <div class="prep-card">
+    <div class="prep-card-header">
+      <span class="prep-word">um</span>
+      <span class="prep-meaning">about, around (time); at the time of (seasonal/liturgical)</span>
+      <span class="prep-mutation">séimhiú</span>
+    </div>
+    <table class="pron-table">
+      <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1st</td><td><span class="pron-form">umam</span></td><td><span class="pron-form">umainn</span></td></tr>
+      <tr><td>2nd</td><td><span class="pron-form">umat</span></td><td><span class="pron-form">umaibh</span></td></tr>
+      <tr><td>3rd m.</td><td><span class="pron-form">uime</span></td><td rowspan="2"><span class="pron-form">umpu</span></td></tr>
+      <tr><td>3rd f.</td><td><span class="pron-form">uimpi</span></td></tr>
+    </table>
+    <div class="examples">
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Tchífidh mé thú <strong>um Nollaig</strong>.</span><span class="english">I'll see you around Christmas.</span></div>
+      <div class="example-item"><span class="bullet">·</span><span class="irish">Bhí sé <strong>um</strong> thráthnóna.</span><span class="english">It was around evening time.</span></div>
+    </div>
+  </div>
+
+  <div class="note-box" style="margin-top:1.5rem;">
+    <strong>With the definite article:</strong><br>
+    ar + an → <em>ar an</em> + urú (Ulster) <span style="color:var(--text-faint)">vs. ar + séimhiú elsewhere</span><br>
+    <span class="irish">ar an bhord (Connacht) / ar an bhord nó ar an bord (Ulster — lenition preferred in speech)</span><br><br>
+    <strong>ag an, chuig an, le</strong> — no mutation before definite article in Ulster Irish in practice.<br>
+    <strong>den, don, sa/san, faoin, ón, tríd an</strong> — preposition fused with <em>an</em>.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- PANEL 2: COMPOUND PREPOSITIONS                         -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="panel-compound" class="panel">
+  <div class="section-title">Réamhfhocail Chomhshuite</div>
+  <div class="section-sub">Compound prepositions govern the genitive case of the following noun. They do not take prepositional pronouns — instead, use a personal pronoun after the component simple preposition.</div>
+
+  <div class="note-box">
+    <strong>Genitive rule:</strong> After a compound preposition, use the genitive form of the noun. E.g. <span class="irish">os comhair <em>an tí</em></span> (in front of <em>the house</em>), <span class="irish">i ndiaidh <em>na hoíche</em></span> (after <em>the night</em>).<br><br>
+    <strong>Personal pronouns:</strong> <span class="irish">os mo chomhair · os do chomhair · os a chomhair · os a comhair · os ár gcomhair</span>
+  </div>
+
+  <h3 class="group-title">Spás agus Treo — Space &amp; Direction</h3>
+  <table class="compound-table">
+    <thead><tr><th>Réamhfhocal</th><th>Ciall</th><th>Sampla</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>ar aghaidh <span class="gen-badge">+ gen</span></td>
+        <td>in front of; opposite; facing</td>
+        <td>
+          <span class="compound-example">Tá sé ar aghaidh na scoile. <em>It's opposite the school.</em></span>
+          <span class="compound-example">Chuaigh sé ar aghaidh leis an obair. <em>He continued with the work.</em></span>
+        </td>
+      </tr>
+      <tr>
+        <td>ar chúl <span class="gen-badge">+ gen</span></td>
+        <td>behind, at the back of</td>
+        <td><span class="compound-example">Tá an gairdín ar chúl an tí. <em>The garden is behind the house.</em></span></td>
+      </tr>
+      <tr>
+        <td>os comhair <span class="gen-badge">+ gen</span></td>
+        <td>in front of; opposite; facing</td>
+        <td><span class="compound-example">Bhí sé ina sheasamh os mo chomhair. <em>He was standing in front of me.</em></span></td>
+      </tr>
+      <tr>
+        <td>os cionn <span class="gen-badge">+ gen</span></td>
+        <td>above; over; more than</td>
+        <td><span class="compound-example">Tá teach mór os cionn na habhann. <em>There's a big house above the river.</em></span>
+        <span class="compound-example">Bhí os cionn céad duine ann. <em>There were more than a hundred people there.</em></span></td>
+      </tr>
+      <tr>
+        <td>faoi bhun <span class="gen-badge">+ gen</span></td>
+        <td>below; under; less than</td>
+        <td><span class="compound-example">Tá sé faoi bhun míle uainn. <em>It's less than a mile from us.</em></span></td>
+      </tr>
+      <tr>
+        <td>in aice le <span class="gen-badge">+ gen</span></td>
+        <td>near; beside; next to</td>
+        <td><span class="compound-example">Bhí sí ina suí in aice liom. <em>She was sitting beside me.</em></span></td>
+      </tr>
+      <tr>
+        <td>le taobh <span class="gen-badge">+ gen</span></td>
+        <td>beside; alongside; compared with</td>
+        <td><span class="compound-example">Tá teach beag le taobh na habhann. <em>There's a small house alongside the river.</em></span></td>
+      </tr>
+      <tr>
+        <td>thart ar</td>
+        <td>around; approximately; about</td>
+        <td><span class="compound-example">Bhí thart ar fiche duine ann. <em>There were about twenty people there.</em></span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="group-title">Am — Time</h3>
+  <table class="compound-table">
+    <thead><tr><th>Réamhfhocal</th><th>Ciall</th><th>Sampla</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>ar feadh <span class="gen-badge">+ gen</span></td>
+        <td>for (a period of time); throughout</td>
+        <td><span class="compound-example">Ar feadh i bhfad, ní raibh fhios agam. <em>For a long time, I didn't know.</em></span>
+        <span class="compound-example">Bhí sé ar feadh uaire ann. <em>He was there for an hour.</em></span></td>
+      </tr>
+      <tr>
+        <td>i gcaitheamh <span class="gen-badge">+ gen</span></td>
+        <td>during; throughout; in the course of</td>
+        <td><span class="compound-example">I gcaitheamh na bliana, tháinig athrú mór. <em>During the year, a big change came.</em></span></td>
+      </tr>
+      <tr>
+        <td>le linn <span class="gen-badge">+ gen</span></td>
+        <td>during; at the time of</td>
+        <td><span class="compound-example">Le linn na cogaidh, bhí ganntanas bia ann. <em>During the war, there was a food shortage.</em></span></td>
+      </tr>
+      <tr>
+        <td>i ndiaidh <span class="gen-badge">+ gen</span></td>
+        <td>after; following; behind</td>
+        <td><span class="compound-example">Chuaigh sí i ndiaidh a máthar. <em>She took after her mother.</em></span>
+        <span class="compound-example">I ndiaidh na hoíche, tháinig an mhaidin. <em>After the night, morning came.</em></span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="group-title">Cúis, Cuspóir &amp; Caoi — Reason, Purpose &amp; Manner</h3>
+  <table class="compound-table">
+    <thead><tr><th>Réamhfhocal</th><th>Ciall</th><th>Sampla</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>de bharr <span class="gen-badge">+ gen</span></td>
+        <td>because of; due to; on account of</td>
+        <td><span class="compound-example">Bhí sé deacair de bharr na drochaimsire. <em>It was difficult because of the bad weather.</em></span></td>
+      </tr>
+      <tr>
+        <td>mar gheall ar <span class="gen-badge">+ gen</span></td>
+        <td>because of; on account of; about</td>
+        <td><span class="compound-example">Tá imní orm mar gheall air. <em>I'm worried about it.</em></span></td>
+      </tr>
+      <tr>
+        <td>ar son <span class="gen-badge">+ gen</span></td>
+        <td>for the sake of; for (benefit)</td>
+        <td><span class="compound-example">Ar son Dé, bí ciúin! <em>For God's sake, be quiet!</em></span>
+        <span class="compound-example">Rinne sé é ar son an phobail. <em>He did it for the sake of the community.</em></span></td>
+      </tr>
+      <tr>
+        <td>ar mhaithe le <span class="gen-badge">+ gen</span></td>
+        <td>for the good of; for the benefit of</td>
+        <td><span class="compound-example">Rinne sé é ar mhaithe leis an phobal. <em>He did it for the good of the community.</em></span></td>
+      </tr>
+      <tr>
+        <td>de réir <span class="gen-badge">+ gen</span></td>
+        <td>according to; in accordance with</td>
+        <td><span class="compound-example">De réir mo thuisceana, tá sé ceart. <em>According to my understanding, it's correct.</em></span></td>
+      </tr>
+      <tr>
+        <td>ar nós <span class="gen-badge">+ gen</span></td>
+        <td>like; in the manner of; as</td>
+        <td><span class="compound-example">Tá sé ar nós a athar. <em>He's like his father.</em></span>
+        <span class="compound-example">D'imigh sé ar nós na gaoithe. <em>He left like the wind.</em></span></td>
+      </tr>
+      <tr>
+        <td>in ionad <span class="gen-badge">+ gen</span></td>
+        <td>instead of; in place of</td>
+        <td><span class="compound-example">In ionad dul ann, d'fhan sé sa bhaile. <em>Instead of going there, he stayed at home.</em></span></td>
+      </tr>
+      <tr>
+        <td>in éadan <span class="gen-badge">+ gen</span></td>
+        <td>against; opposing</td>
+        <td><span class="compound-example">Bhí siad in éadan na hathraithe. <em>They were against the changes.</em></span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="group-title">Áit i Measc — Location Among</h3>
+  <table class="compound-table">
+    <thead><tr><th>Réamhfhocal</th><th>Ciall</th><th>Sampla</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>i lár <span class="gen-badge">+ gen</span></td>
+        <td>in the middle of; in the centre of</td>
+        <td><span class="compound-example">I lár na cathrach atá sé. <em>It's in the middle of the city.</em></span></td>
+      </tr>
+      <tr>
+        <td>i measc <span class="gen-badge">+ gen</span></td>
+        <td>among; amid; in the midst of</td>
+        <td><span class="compound-example">Bhí siad i measc na ndaoine. <em>They were among the people.</em></span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note-box" style="margin-top:1rem;">
+    <strong>Personal pronoun forms with compound prepositions:</strong><br>
+    <span class="irish">os mo chomhair · os do chomhair · os a chomhair (m.) · os a comhair (f.) · os ár gcomhair · os bhur gcomhair · os a gcomhair</span><br><br>
+    <span class="irish">ar mo shon · ar do shon · ar a shon · ar a son · ar ár son · ar bhur son · ar a son</span><br><br>
+    The pattern: the personal possessive adjective (mo, do, a…) is inserted between the parts of the compound.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- PANEL 3: CONVERSATION                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="panel-convo" class="panel">
+  <div class="section-title">Comhrá Laethúil</div>
+  <div class="section-sub">Everyday conversational lines — read and internalise these. Ulster Irish forms highlighted where they differ from standard.</div>
+
+  <h3 class="group-title">Ag — Possession &amp; State</h3>
+
+  <div class="convo-card">
+    <span class="convo-num">01</span>
+    <div class="convo-body">
+      <div class="convo-irish">Níl a fhios <strong>agam</strong>.</div>
+      <div class="convo-english">I don't know.</div>
+      <div class="convo-note">Core phrase. <em>Níl fhios agam</em> (without the <em>a</em>) also heard in Ulster.</div>
+    </div>
+    <span class="convo-tag">ag</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">02</span>
+    <div class="convo-body">
+      <div class="convo-irish">An bhfuil airgead <strong>agat</strong>?</div>
+      <div class="convo-english">Do you have money?</div>
+      <div class="convo-note">Possession with <em>ag</em> — Irish doesn't use a verb "to have".</div>
+    </div>
+    <span class="convo-tag">ag</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">03</span>
+    <div class="convo-body">
+      <div class="convo-irish">Cad é atá <strong>agat</strong> inniu?</div>
+      <div class="convo-english">What have you on today? / What are you up to today?</div>
+      <div class="convo-note"><em>Cad é</em> — Ulster form of <em>cad</em> / <em>céard</em>.</div>
+    </div>
+    <span class="convo-tag">ag · Ulster</span>
+  </div>
+
+  <h3 class="group-title">Ar — Emotions &amp; States</h3>
+
+  <div class="convo-card">
+    <span class="convo-num">04</span>
+    <div class="convo-body">
+      <div class="convo-irish">Tá tuirse mhór <strong>orm</strong>.</div>
+      <div class="convo-english">I'm very tired.</div>
+      <div class="convo-note">Emotions and physical states sit <em>on</em> the person in Irish. <em>tuirse + orm</em> — tiredness on me.</div>
+    </div>
+    <span class="convo-tag">ar</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">05</span>
+    <div class="convo-body">
+      <div class="convo-irish">Cad é atá <strong>ort</strong>? / Cad atá cearr <strong>ort</strong>?</div>
+      <div class="convo-english">What's wrong with you? / What's the matter?</div>
+    </div>
+    <span class="convo-tag">ar</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">06</span>
+    <div class="convo-body">
+      <div class="convo-irish">Bhí áthas mór <strong>orm</strong> é sin a chloisteáil.</div>
+      <div class="convo-english">I was very glad to hear that.</div>
+      <div class="convo-note"><em>áthas orm</em> — gladness on me. Adjust: <em>brón orm</em> (sadness), <em>imní orm</em> (worry), <em>náire orm</em> (shame).</div>
+    </div>
+    <span class="convo-tag">ar</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">07</span>
+    <div class="convo-body">
+      <div class="convo-irish">Chuir mé glao <strong>air</strong>.</div>
+      <div class="convo-english">I called him / I rang him.</div>
+      <div class="convo-note"><em>glao a chur ar dhuine</em> — to make a call on someone.</div>
+    </div>
+    <span class="convo-tag">ar</span>
+  </div>
+
+  <h3 class="group-title">Le — With &amp; Belonging</h3>
+
+  <div class="convo-card">
+    <span class="convo-num">08</span>
+    <div class="convo-body">
+      <div class="convo-irish">Bhí muid <strong>le chéile</strong> aréir.</div>
+      <div class="convo-english">We were together last night.</div>
+      <div class="convo-note"><em>le chéile</em> — together (with each other). Common everyday phrase.</div>
+    </div>
+    <span class="convo-tag">le</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">09</span>
+    <div class="convo-body">
+      <div class="convo-irish">Is <strong>liom</strong> féin é.</div>
+      <div class="convo-english">It's mine. / It belongs to me.</div>
+      <div class="convo-note">Ownership: <em>le</em> + pronoun. <em>Is leatsa é</em> — it's yours.</div>
+    </div>
+    <span class="convo-tag">le</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">10</span>
+    <div class="convo-body">
+      <div class="convo-irish">Labhair mé <strong>leis</strong> ar maidin.</div>
+      <div class="convo-english">I spoke to him this morning.</div>
+      <div class="convo-note"><em>labhairt le duine</em> — to speak to someone (<em>ar</em> in older/formal registers).</div>
+    </div>
+    <span class="convo-tag">le</span>
+  </div>
+
+  <h3 class="group-title">Do — Giving &amp; Indirect Object</h3>
+
+  <div class="convo-card">
+    <span class="convo-num">11</span>
+    <div class="convo-body">
+      <div class="convo-irish">Thug sé leabhar <strong>domh</strong>.</div>
+      <div class="convo-english">He gave me a book.</div>
+      <div class="convo-note" style="color: var(--ulster);">Ulster form: <strong>domh</strong> — not <em>dom</em>. The /v/ sound is audible: <em>dúv</em>.</div>
+    </div>
+    <span class="convo-tag">do · Ulster</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">12</span>
+    <div class="convo-body">
+      <div class="convo-irish">Gabh mo leithscéal. Cad é a dúirt tú?</div>
+      <div class="convo-english">Excuse me. What did you say?</div>
+      <div class="convo-note"><em>Gabh mo leithscéal</em> — Ulster everyday formula for "excuse me / pardon".</div>
+    </div>
+    <span class="convo-tag">Ulster</span>
+  </div>
+
+  <h3 class="group-title">Ó — From &amp; Since</h3>
+
+  <div class="convo-card">
+    <span class="convo-num">13</span>
+    <div class="convo-body">
+      <div class="convo-irish">Ní fhaca mé thú <strong>ó</strong> shin.</div>
+      <div class="convo-english">I haven't seen you since then.</div>
+    </div>
+    <span class="convo-tag">ó</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">14</span>
+    <div class="convo-body">
+      <div class="convo-irish">Chuala mé <strong>uaidh</strong> ar maidin.</div>
+      <div class="convo-english">I heard from him this morning.</div>
+    </div>
+    <span class="convo-tag">ó</span>
+  </div>
+
+  <h3 class="group-title">I — In &amp; Into</h3>
+
+  <div class="convo-card">
+    <span class="convo-num">15</span>
+    <div class="convo-body">
+      <div class="convo-irish">Tá sé ina chónaí <strong>i mBéal Feirste</strong>.</div>
+      <div class="convo-english">He lives in Belfast.</div>
+      <div class="convo-note">Eclipsis: <em>i</em> + B → <em>i mB</em>. Also: <em>i gContae Aontroma, i nDoire, i nGaillimh.</em></div>
+    </div>
+    <span class="convo-tag">i + urú</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">16</span>
+    <div class="convo-body">
+      <div class="convo-irish">Tá sé ag obair <strong>ann</strong> le fada.</div>
+      <div class="convo-english">He's been working there for a long time.</div>
+      <div class="convo-note"><em>ann</em> = the 3rd person masculine prepositional pronoun of <em>i</em>, meaning "in it / there".</div>
+    </div>
+    <span class="convo-tag">i</span>
+  </div>
+
+  <h3 class="group-title">Compound Prepositions in Conversation</h3>
+
+  <div class="convo-card">
+    <span class="convo-num">17</span>
+    <div class="convo-body">
+      <div class="convo-irish">Bhí sé ina sheasamh <strong>os mo chomhair</strong>.</div>
+      <div class="convo-english">He was standing in front of me / facing me.</div>
+    </div>
+    <span class="convo-tag">os comhair</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">18</span>
+    <div class="convo-body">
+      <div class="convo-irish">Bhí sé deacair <strong>de bharr</strong> na drochaimsire.</div>
+      <div class="convo-english">It was difficult because of the bad weather.</div>
+    </div>
+    <span class="convo-tag">de bharr</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">19</span>
+    <div class="convo-body">
+      <div class="convo-irish">Tá imní orm <strong>mar gheall air</strong>.</div>
+      <div class="convo-english">I'm worried about it.</div>
+      <div class="convo-note"><em>imní + orm</em> — worry on me. <em>mar gheall ar</em> — because of / about.</div>
+    </div>
+    <span class="convo-tag">mar gheall ar</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">20</span>
+    <div class="convo-body">
+      <div class="convo-irish">Tá sé <strong>ar nós</strong> a athar.</div>
+      <div class="convo-english">He's like his father.</div>
+    </div>
+    <span class="convo-tag">ar nós</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">21</span>
+    <div class="convo-body">
+      <div class="convo-irish"><strong>In ionad</strong> dul ann, d'fhan sé sa bhaile.</div>
+      <div class="convo-english">Instead of going there, he stayed at home.</div>
+      <div class="convo-note"><em>in ionad</em> + verbal noun = "instead of doing". Very common structure.</div>
+    </div>
+    <span class="convo-tag">in ionad</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">22</span>
+    <div class="convo-body">
+      <div class="convo-irish">Chuaigh sí <strong>i ndiaidh</strong> a máthar.</div>
+      <div class="convo-english">She took after her mother.</div>
+      <div class="convo-note">Also: <em>dul i ndiaidh duine</em> — to follow someone / to go after someone.</div>
+    </div>
+    <span class="convo-tag">i ndiaidh</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">23</span>
+    <div class="convo-body">
+      <div class="convo-irish">Bhí thart <strong>ar fiche duine</strong> ann.</div>
+      <div class="convo-english">There were about twenty people there.</div>
+    </div>
+    <span class="convo-tag">thart ar</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">24</span>
+    <div class="convo-body">
+      <div class="convo-irish"><strong>De réir</strong> mo thuisceana, tá sé ceart.</div>
+      <div class="convo-english">According to my understanding, it's correct.</div>
+    </div>
+    <span class="convo-tag">de réir</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">25</span>
+    <div class="convo-body">
+      <div class="convo-irish">D'imigh sé <strong>ar nós na gaoithe</strong>.</div>
+      <div class="convo-english">He left like the wind. (He was off in a flash.)</div>
+      <div class="convo-note">Set phrase — very expressive. <em>gaoth</em> → gen. sg. <em>gaoithe</em>.</div>
+    </div>
+    <span class="convo-tag">ar nós · idiom</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">26</span>
+    <div class="convo-body">
+      <div class="convo-irish">Ar son Dé, éist liom!</div>
+      <div class="convo-english">For God's sake, listen to me!</div>
+      <div class="convo-note"><em>éist le duine</em> — to listen to someone. <em>ar son</em> + genitive.</div>
+    </div>
+    <span class="convo-tag">ar son</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">27</span>
+    <div class="convo-body">
+      <div class="convo-irish">Bhí siad <strong>in éadan</strong> na hathraithe.</div>
+      <div class="convo-english">They were against the changes.</div>
+    </div>
+    <span class="convo-tag">in éadan</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">28</span>
+    <div class="convo-body">
+      <div class="convo-irish">Bhí sé ann <strong>ar feadh</strong> i bhfad.</div>
+      <div class="convo-english">He was there for a long time.</div>
+      <div class="convo-note"><em>ar feadh i bhfad</em> — for a long time (set phrase; "i bhfad" in the genitive position).</div>
+    </div>
+    <span class="convo-tag">ar feadh</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">29</span>
+    <div class="convo-body">
+      <div class="convo-irish"><strong>Le linn</strong> na hoíche, tháinig athrú aimsire.</div>
+      <div class="convo-english">During the night, there was a weather change.</div>
+    </div>
+    <span class="convo-tag">le linn</span>
+  </div>
+
+  <div class="convo-card">
+    <span class="convo-num">30</span>
+    <div class="convo-body">
+      <div class="convo-irish">Tchífidh mé thú <strong>um Nollaig</strong>.</div>
+      <div class="convo-english">I'll see you around Christmas.</div>
+      <div class="convo-note"><em>tchífidh</em> — Ulster Irish future of <em>feic</em> (to see). Standard: <em>feicfidh</em>.</div>
+    </div>
+    <span class="convo-tag">um · Ulster</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- PANEL 4: QUIZ                                          -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="panel-quiz" class="panel">
+  <div class="section-title">Tástáil — Quiz</div>
+  <div class="section-sub">Test your knowledge of simple and compound prepositions in Ulster Irish</div>
+
+  <div id="quiz-start">
+    <p style="color:var(--text-dim); font-family:'EB Garamond',serif; font-size:1.05rem; margin-bottom:1rem;">20 questions covering prepositional pronouns, mutations, compound prepositions, and everyday sentences.</p>
+    <button class="start-btn" onclick="startQuiz()">Tosaigh an Tástáil</button>
+  </div>
+
+  <div id="quiz-active">
+    <div class="quiz-progress">
+      <span id="q-counter">1 / 20</span>
+      <span id="q-score-live">✓ 0</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="quiz-q" id="quiz-question"></div>
+    <div class="options" id="quiz-options"></div>
+    <div class="quiz-feedback hidden" id="quiz-feedback"></div>
+    <button class="next-btn" id="next-btn" style="display:none" onclick="nextQuestion()">Ar aghaidh →</button>
+  </div>
+
+  <div id="quiz-results">
+    <div class="score-big" id="final-score"></div>
+    <div class="score-label" id="final-label"></div>
+    <div class="review-list" id="review-list"></div>
+    <button class="restart-btn" onclick="restartQuiz()">Tosaigh arís</button>
+  </div>
+</div>
+
+<footer>Gaeilge Uladh · Réamhfhocail · Ulster Irish Grammar Notes</footer>
+
+<script>
+// ── TAB SWITCHING ──────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── QUIZ DATA ──────────────────────────────────────────────
+const questions = [
+  {
+    q: 'Ulster Irish: What is the correct 1st person singular form of <span class="highlight">do</span> (to/for)?',
+    opts: ['dom', 'domh', 'dúinn', 'duit'],
+    ans: 1,
+    exp: '<strong>domh</strong> is the Ulster form. Standard Connacht/Munster uses <em>dom</em>. The /v/ is audible in Ulster speech.'
+  },
+  {
+    q: 'Fill in the blank: <span class="highlight">Tá ocras ___ .</span> (I\'m hungry.)',
+    opts: ['agam', 'orm', 'liom', 'uaim'],
+    ans: 1,
+    exp: '<strong>orm</strong> — hunger is on me. Emotions and physical states use <em>ar</em> in Irish.'
+  },
+  {
+    q: 'Which preposition causes <span class="highlight">urú</span> (eclipsis)?',
+    opts: ['ar', 'le', 'i', 'ó'],
+    ans: 2,
+    exp: '<strong>i</strong> causes eclipsis: <em>i mBéal Feirste, i gContae Aontroma, i nDoire</em>. Before vowels: <em>i n-Éirinn</em>.'
+  },
+  {
+    q: 'What is the 3rd person feminine singular of <span class="highlight">ag</span>?',
+    opts: ['aige', 'acu', 'aici', 'againn'],
+    ans: 2,
+    exp: '<strong>aici</strong> — at her. 3rd masc: <em>aige</em>; plural: <em>acu</em>.'
+  },
+  {
+    q: 'Ulster Irish: "I\'ll see you around Christmas." Which form is correct?',
+    opts: ['Feicfidh mé thú um Nollaig.', 'Tchífidh mé thú um Nollaig.', 'Chifeá mé thú um Nollaig.', 'Feicim thú um Nollaig.'],
+    ans: 1,
+    exp: '<strong>Tchífidh</strong> is the Ulster future of <em>feic</em>. Standard Irish uses <em>feicfidh</em>.'
+  },
+  {
+    q: 'Complete: <span class="highlight">Chuaigh sé ___ Bhéal Feirste.</span> (He went through Belfast.)',
+    opts: ['trí', 'thar', 'ó', 'as'],
+    ans: 0,
+    exp: '<strong>trí</strong> = through. It causes séimhiú: <em>trí Bhéal Feirste</em>. 3sg: <em>tríd</em> (through it).'
+  },
+  {
+    q: '"Instead of going there, he stayed at home." Which compound preposition?',
+    opts: ['in éadan', 'in ionad', 'i measc', 'i ndiaidh'],
+    ans: 1,
+    exp: '<strong>in ionad</strong> + verbal noun = "instead of doing". <em>In ionad dul ann, d\'fhan sé sa bhaile.</em>'
+  },
+  {
+    q: 'What case do compound prepositions govern?',
+    opts: ['Ainmneach (nominative)', 'Cuspóireach (accusative)', 'Ginideach (genitive)', 'Tabharthach (dative)'],
+    ans: 2,
+    exp: '<strong>Ginideach</strong> — the genitive case. E.g. <em>os comhair <u>an tí</u></em>, <em>de bharr <u>na drochaimsire</u></em>.'
+  },
+  {
+    q: 'Fill in: <span class="highlight">Bhí sé ina sheasamh os ___ chomhair.</span> (He was standing in front of me.)',
+    opts: ['mo', 'do', 'a', 'ár'],
+    ans: 0,
+    exp: '<strong>os mo chomhair</strong> — in front of me. The possessive adjective is inserted: <em>os do chomhair, os a chomhair, os ár gcomhair</em>.'
+  },
+  {
+    q: 'Which preposition is used in: <span class="highlight">"She was sitting beside me."</span>',
+    opts: ['ar chúl', 'in aice le', 'os comhair', 'i lár'],
+    ans: 1,
+    exp: '<strong>in aice le</strong> = near/beside. <em>Bhí sí ina suí in aice liom.</em> Note <em>liom</em> as the personal form.'
+  },
+  {
+    q: 'Complete: <span class="highlight">Ní fhaca mé thú ___ shin.</span> (I haven\'t seen you since then.)',
+    opts: ['le', 'ó', 'roimh', 'as'],
+    ans: 1,
+    exp: '<strong>ó</strong> = from/since. <em>ó shin</em> = since then. <em>uaim, uait, uaidh, uaithi</em> etc.'
+  },
+  {
+    q: '"She took after her mother." Which compound preposition?',
+    opts: ['ar son', 'ar nós', 'i ndiaidh', 'de réir'],
+    ans: 2,
+    exp: '<strong>i ndiaidh</strong> = after/following. <em>Chuaigh sí i ndiaidh a máthar.</em> Also means "to go after someone".'
+  },
+  {
+    q: 'What is the 3rd person feminine singular of <span class="highlight">ar</span>?',
+    opts: ['air', 'uirthi', 'orthu', 'orainn'],
+    ans: 1,
+    exp: '<strong>uirthi</strong> — on her. 3rd masc: <em>air</em>; 1sg: <em>orm</em>; 2sg: <em>ort</em>; plural: <em>orthu</em>.'
+  },
+  {
+    q: 'Which preposition causes <span class="highlight">séimhiú</span> on the following noun?',
+    opts: ['ag', 'as', 'chuig', 'ó'],
+    ans: 3,
+    exp: '<strong>ó</strong> causes séimhiú: <em>ó Bhéal Feirste</em>. <em>ag, as, chuig, le</em> cause no mutation.'
+  },
+  {
+    q: 'Complete: <span class="highlight">Is ___ an carr sin.</span> (That car is mine.)',
+    opts: ['agam', 'liom', 'orm', 'domh'],
+    ans: 1,
+    exp: '<strong>liom</strong> — the copula + <em>le</em> + pronoun expresses ownership. <em>Is leatsa é</em> = it\'s yours.'
+  },
+  {
+    q: '"According to my understanding" — correct phrase?',
+    opts: ['De bharr mo thuisceana', 'De réir mo thuisceana', 'Ar son mo thuisceana', 'Ar nós mo thuisceana'],
+    ans: 1,
+    exp: '<strong>De réir</strong> = according to / in accordance with. Takes genitive: <em>de réir mo thuisceana</em>.'
+  },
+  {
+    q: 'Complete: <span class="highlight">___ fiche duine ann.</span> (There were about twenty people there.)',
+    opts: ['Ar feadh', 'I measc', 'Bhí thart ar', 'Bhí os cionn'],
+    ans: 2,
+    exp: '<strong>Bhí thart ar fiche duine ann.</strong> <em>thart ar</em> = about/approximately. <em>Os cionn fiche</em> would mean "more than twenty".'
+  },
+  {
+    q: 'What mutation does <span class="highlight">roimh</span> cause?',
+    opts: ['Urú', 'Séimhiú', 'Gan athrú', 'n- prefix'],
+    ans: 1,
+    exp: '<strong>Séimhiú</strong>. <em>Roimh Nollaig</em>, <em>romham, romhat, roimhe, roimpi</em> etc.'
+  },
+  {
+    q: 'Complete: <span class="highlight">Bhí siad ___ na ndaoine.</span> (They were among the people.)',
+    opts: ['i lár', 'i measc', 'os cionn', 'ar son'],
+    ans: 1,
+    exp: '<strong>i measc</strong> = among/amid. Takes genitive: <em>i measc na ndaoine</em> (genitive plural with <em>na</em> + eclipsis).'
+  },
+  {
+    q: '"For a long time, I didn\'t know." — correct Ulster Irish sentence?',
+    opts: [
+      'Ar feadh i bhfad, níl a fhios agam.',
+      'Ar feadh i bhfad, ní raibh a fhios agam.',
+      'De bharr i bhfad, ní raibh fhios agam.',
+      'Le linn i bhfad, ní raibh fhios agam.'
+    ],
+    ans: 1,
+    exp: '<strong>Ar feadh i bhfad, ní raibh a fhios agam.</strong> <em>ar feadh</em> = for a period. Past tense needs <em>ní raibh</em> not <em>níl</em>.'
+  }
+];
+
+let current = 0;
+let score = 0;
+let answered = false;
+let userAnswers = [];
+
+function startQuiz() {
+  current = 0; score = 0; answered = false; userAnswers = [];
+  document.getElementById('quiz-start').style.display = 'none';
+  document.getElementById('quiz-results').style.display = 'none';
+  document.getElementById('quiz-active').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  answered = false;
+  const q = questions[current];
+  document.getElementById('q-counter').textContent = (current + 1) + ' / ' + questions.length;
+  document.getElementById('q-score-live').textContent = '✓ ' + score;
+  document.getElementById('progress-fill').style.width = (current / questions.length * 100) + '%';
+  document.getElementById('quiz-question').innerHTML = q.q;
+  document.getElementById('quiz-feedback').className = 'quiz-feedback hidden';
+  document.getElementById('next-btn').style.display = 'none';
+
+  const optDiv = document.getElementById('quiz-options');
+  optDiv.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = opt;
+    btn.onclick = () => selectAnswer(i);
+    optDiv.appendChild(btn);
+  });
+}
+
+function selectAnswer(i) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('quiz-feedback');
+  if (i === q.ans) {
+    score++;
+    btns[i].classList.add('correct');
+    fb.className = 'quiz-feedback correct-fb';
+    fb.innerHTML = '✓ Ceart! ' + q.exp;
+  } else {
+    btns[i].classList.add('wrong');
+    btns[q.ans].classList.add('correct');
+    fb.className = 'quiz-feedback wrong-fb';
+    fb.innerHTML = '✗ Mícheart. ' + q.exp;
+  }
+  userAnswers.push({ q: q.q, chosen: q.opts[i], correct: q.opts[q.ans], ok: i === q.ans });
+  document.getElementById('next-btn').style.display = 'block';
+  document.getElementById('q-score-live').textContent = '✓ ' + score;
+}
+
+function nextQuestion() {
+  current++;
+  if (current >= questions.length) {
+    showResults();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  document.getElementById('quiz-active').style.display = 'none';
+  document.getElementById('quiz-results').style.display = 'block';
+  document.getElementById('final-score').textContent = score + ' / ' + questions.length;
+
+  const pct = score / questions.length;
+  let label = '';
+  if (pct === 1) label = 'Foirfe! Gaeilge iontach agat.';
+  else if (pct >= 0.85) label = 'Ar fheabhas! Tá tú ag dul i bhfeabhas go mór.';
+  else if (pct >= 0.7) label = 'Go maith! Coinnigh ort.';
+  else if (pct >= 0.5) label = 'Measartha maith. Léigh na nótaí arís.';
+  else label = 'Déan athstaidéar ar na réamhfhocail — tiocfaidh leat.';
+  document.getElementById('final-label').textContent = label;
+
+  const rl = document.getElementById('review-list');
+  rl.innerHTML = '<h3 style="font-family:\'Spectral SC\',serif;font-size:0.72rem;letter-spacing:0.15em;color:var(--teal-dim);margin-bottom:0.8rem;">REVIEW</h3>';
+  userAnswers.forEach((a, idx) => {
+    const div = document.createElement('div');
+    div.className = 'review-item ' + (a.ok ? 'r-correct' : 'r-wrong');
+    const icon = a.ok ? '✓' : '✗';
+    div.innerHTML = `<div class="r-q">${icon} Q${idx+1}: ${a.q.replace(/<[^>]+>/g,'')}</div>
+      ${!a.ok ? `<div class="r-a">Your answer: ${a.chosen} · <span class="r-correct-ans">Correct: ${a.correct}</span></div>` : ''}`;
+    rl.appendChild(div);
+  });
+}
+
+function restartQuiz() {
+  document.getElementById('quiz-results').style.display = 'none';
+  document.getElementById('quiz-start').style.display = 'block';
+}
+</script>
+</body>
+</html>
